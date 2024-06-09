@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void solve(TreeNode* root,string str,vector<string>& ans){
+        if(root->left==NULL && root->right==NULL){
+            str+=to_string(root->val);
+            ans.push_back(str);
+            return;
+        }
+        str+=to_string(root->val)+"->";
+        if(root->left){
+            solve(root->left,str,ans);
+        }
+        if(root->right){
+            solve(root->right,str,ans);
+        }
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        string str="";
+        vector<string>ans;
+        solve(root,str,ans);
+        return ans;
+    }
+};
