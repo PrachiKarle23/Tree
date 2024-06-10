@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    void solve(Node* root,int& ans){
+        if(root->left==NULL){
+            ans=root->data;
+            return;
+        }
+        solve(root->left,ans);
+    }
+    int minValue(Node* root) {
+        int ans=0;
+        solve(root,ans);
+        return ans;
+    }
+};
