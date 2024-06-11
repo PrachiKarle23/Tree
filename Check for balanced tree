@@ -1,23 +1,45 @@
 class Solution{
     public:
-    int height(Node* root)
+    // int height(Node* root)
+    // {
+    //     if(root==NULL){
+    //         return 0;
+    //     }
+    //     int left=height(root->left);
+    //     int right=height(root->right);
+        
+    //     return max(left,right)+1;
+    // }
+    pair<int,bool> solve(Node* root)
     {
         if(root==NULL){
-            return 0;
+            pair<int,bool>p=make_pair(0,true);
+            return p;
         }
-        int left=height(root->left);
-        int right=height(root->right);
+        pair<int,bool>left=solve(root->left);
+        pair<int,bool>right=solve(root->right);
         
-        return max(left,right)+1;
+        bool op1=left.second;
+        bool op2=right.second;
+        bool diff=abs(left.first - right.first)<=1;
+        
+        pair<int,bool>ans;
+        ans.first= max(left.first,right.first)+1;
+        ans.second= op1 && op2 && diff;
+        
+        return ans;
     }
     bool isBalanced(Node *root)
     {
        if(root==NULL){
            return true;
        }
-       bool left = isBalanced(root->left);
-       bool right = isBalanced(root->right);
-       bool diff = abs(height(root->left)-height(root->right))<=1;
-       return left && right && diff;
+    //   bool left = isBalanced(root->left);
+    //   bool right = isBalanced(root->right);
+    //   bool diff = abs(height(root->left)-height(root->right))<=1;
+    //   return left && right && diff;
+    
+       pair<int,bool>ans=solve(root);
+       return ans.second;
     }
 };
