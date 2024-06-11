@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void createMapping(vector<int>& inorder,int n,map<int,int>& nodeToIndex)
+    {
+        for(int i=0;i<n;i++)
+        {
+            nodeToIndex[inorder[i]]=i;
+        }
+    }
+
+    TreeNode* solve(vector<int>& preorder, vector<int>& inorder,int & index,int i,int j,
+    int n,map<int,int>& nodeToIndex)
+    {
+        if(index>=n || i>j ){
+           return NULL;
+        }
+
+        int ele=preorder[index++];
+        TreeNode* root=new TreeNode(ele);
+        int pos=nodeToIndex[ele];
+         
+         root->left=solve(preorder,inorder,index,i,pos-1,n,nodeToIndex);
+         root->right=solve(preorder,inorder,index,pos+1,j,n,nodeToIndex);
+         return root;
+    }
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int index=0;
+        int n=inorder.size();
+        map<int,int>nodeToIndex;
+        createMapping(inorder,n,nodeToIndex);
+        TreeNode* ans=solve(preorder,inorder,index,0,n-1,n,nodeToIndex);
+        return ans;
+    }
+};
