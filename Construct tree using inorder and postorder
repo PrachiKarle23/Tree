@@ -1,0 +1,33 @@
+class Solution
+{
+    public:
+    void createMapping(int in[],int n,map<int,int>& nodeToIndex)
+    {
+        for(int i=0;i<n;i++)
+        {
+            nodeToIndex[in[i]]=i;
+        }
+    }
+    Node* solve(int in[],int post[],int &index,int i,int j,map<int,int>& nodeToIndex)
+    {
+        if(index<0 || i>j){
+            return NULL;
+        }
+        
+        int ele=post[index--];
+        Node* root=new Node(ele);
+        int pos=nodeToIndex[ele];
+        
+        root->right=solve(in,post,index,pos+1,j,nodeToIndex);
+        root->left=solve(in,post,index,i,pos-1,nodeToIndex);
+        
+        return root;
+    }
+    Node *buildTree(int in[], int post[], int n) {
+        map<int,int>nodeToIndex;
+        int index=n-1;
+        createMapping(in,n,nodeToIndex);
+        Node* ans=solve(in,post,index,0,n-1,nodeToIndex);
+        return ans;
+    }
+};
