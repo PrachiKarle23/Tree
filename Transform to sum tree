@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    void sum(Node* &node,int& s){
+        if(node==NULL){
+            return;
+        }
+        s+=node->data;
+        sum(node->left,s);
+        sum(node->right,s);
+    }
+    void toSumTree(Node *node)
+    {
+        if(node==NULL){
+            return;
+        }
+        int s1=0,s2=0;
+        
+        sum(node->left,s1);
+        sum(node->right,s2);
+        
+        node->data=s1+s2;
+        
+        toSumTree(node->left);
+        toSumTree(node->right);
+    }
+};
