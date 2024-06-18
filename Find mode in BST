@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void inordere(TreeNode* root,vector<int>& ans)
+    {
+        if(root==NULL){
+            return;
+        }
+        ans.push_back(root->val);
+        inordere(root->left,ans);
+        inordere(root->right,ans);
+    }
+    vector<int> findMode(TreeNode* root) {
+         vector<int>ans;
+         inordere(root,ans);
+         map<int,int>mp;
+         for(int i=0;i<ans.size();i++)
+         {
+            mp[ans[i]]++;
+         }
+         int maxi=0;
+         for(auto i:mp)
+         {
+            if(maxi<i.second)
+            {
+                maxi=i.second;
+            }
+         }
+         ans.clear();
+         for(auto i:mp)
+         {
+            if(i.second==maxi)
+            {
+                ans.push_back(i.first);
+            }
+         }
+         return ans;
+    }
+};
