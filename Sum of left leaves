@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void solve(TreeNode* root,int &sum)
+    {
+        if(root==NULL){
+            return;
+        }
+        if(root->left)
+        {
+            TreeNode* temp1=root->left;
+            if(temp1->left==NULL && temp1->right==NULL)
+            {
+                sum+=temp1->val;
+            }
+            solve(root->left,sum);
+        }
+        if(root->right)
+        {
+            solve(root->right,sum);
+        }
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        int sum=0;
+        solve(root,sum);
+        return sum;
+    }
+};
