@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void solve(TreeNode* root,int sum,int targetSum,bool &ans)
+    {
+        if(root->left==NULL && root->right==NULL){
+            sum=sum+root->val;
+            if(sum==targetSum){
+                ans=true;
+            }
+            
+            return;
+        }
+        sum=sum+root->val;
+        if(root->left){
+            solve(root->left,sum,targetSum,ans);
+        }
+        if(root->right){
+            solve(root->right,sum,targetSum,ans);
+        }
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+       
+        if((root==NULL && targetSum!=0) || (root==NULL && targetSum==0)){
+            return false;
+        }
+        int sum=0;
+        bool ans=false;
+        solve(root,sum,targetSum,ans);
+        return ans;
+    }
+};
