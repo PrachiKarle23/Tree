@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool solve1(TreeNode* temp,TreeNode* subRoot)
+    {
+        if(temp==NULL && subRoot==NULL){
+            return true;
+        }
+        if((temp==NULL && subRoot!=NULL) || (temp!=NULL && subRoot==NULL))
+        {
+            return false;
+        }
+        if(temp->val!=subRoot->val){
+            return false;
+        }
+        bool left=solve1(temp->left,subRoot->left);
+        bool right=solve1(temp->right,subRoot->right);
+        return left && right;
+    }
+    void inorder(TreeNode* root,vector<int>&a){
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root->val);
+        inorder(root->right,a);
+    }
+    void solve(TreeNode* root,TreeNode* subRoot,bool &ans)
+    {
+        if(root==NULL){
+            return;
+        }
+        if(root->val == subRoot->val){
+            if(solve1(root->left,subRoot->left) && solve1(root->right,subRoot->right))
+            {
+               ans=true;
+            }
+        }
+        solve(root->left,subRoot,ans);
+        solve(root->right,subRoot,ans);
+    }
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(root==NULL && subRoot==NULL){
+            return true;
+        }
+        if((root==NULL && subRoot!=NULL) || (root!=NULL && subRoot==NULL)){
+            return false;
+        }
+        if(root->left==NULL && root->right==NULL && subRoot->left==NULL && subRoot->right==NULL){
+            return root->val==subRoot->val;
+        }
+        bool ans=false;
+        solve(root,subRoot,ans);
+        return ans;
+    }
+};
