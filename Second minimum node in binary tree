@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void solve(TreeNode* root,set<int>&a)
+    {
+        if(root==NULL){
+            return;
+        }
+        a.insert(root->val);
+        if(root->left){
+            solve(root->left,a);
+        }
+        if(root->right){
+            solve(root->right,a);
+        }
+    }
+   
+    int findSecondMinimumValue(TreeNode* root) {
+        if(root==NULL){
+            return -1;
+        }
+        set<int>a;
+        solve(root,a);
+        if(a.size()==1){
+           return -1; 
+        }
+        set<int>::iterator it=a.begin();
+        it++;
+        return *(it);
+    }
+};
