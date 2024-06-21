@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        solve(root->left,a);
+        a.push_back(root->val);
+        solve(root->right,a);
+    }
+    bool findTarget(TreeNode* root, int k) {
+       if(root==NULL && k!=0){
+        return false;
+       } 
+       if(root==NULL && k==0){
+        return true;
+       }
+       vector<int>a;
+       solve(root,a);
+       int i=0,n=a.size()-1;
+       while(i<n){
+         int sum=a[i]+a[n];
+         if(sum==k){
+            return true;
+         }
+         else if(sum<k){
+            i++;
+         }
+         else{
+            n--;
+         }
+       }
+       return false;
+    }
+};
