@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        solve(root->left,a);
+        a.push_back(root->val);
+        solve(root->right,a);
+    }
+    bool isSorted(vector<int>& a){
+       for(int i=1;i<a.size();i++){
+        if(a[i-1]>a[i] || a[i-1]==a[i]){
+            return false;
+        }
+       }
+       return true;
+    }
+    bool isValidBST(TreeNode* root) {
+        if(root==NULL){
+            return true;
+        }
+        vector<int>a;
+        solve(root,a);
+        return isSorted(a);
+    }
+};
