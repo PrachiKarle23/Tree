@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void solve(TreeNode* root,int val,TreeNode* &ans)
+    {
+        if(root==NULL){
+            ans=NULL;
+            return;
+        }
+        if(root->val==val){
+            ans=root;
+        }
+        else if(root->val>val){
+           solve(root->left,val,ans);
+        }
+        else if(root->val<val){
+            solve(root->right,val,ans);
+        }
+    }
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(root==NULL){
+            return root;
+        }
+        TreeNode* ans;
+        solve(root,val,ans);
+        return ans;
+    }
+};
