@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        solve(root->left,a);
+        a.push_back(root->val);
+        solve(root->right,a);
+    }
+    bool solve1(vector<int>a,int s1,int s2,int e1,int e2)
+    {
+        while(s1<e1 && e2>s2)
+        {
+            if(a[s1]!=a[e2]){
+                return false;
+            }
+            s1++;
+            e2--;
+        }
+        return true;
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL || (root->left==NULL && root->right==NULL)){
+            return true;
+        }
+        vector<int>a;
+        solve(root,a);
+        int s1=0,e2=a.size()-1,s2,e1;
+        for(int i=0;i<e2+1;i++){
+            if(a[i]==root->val){
+                s2=i+1;
+                e1=i-1;
+            }
+        }
+        return solve1(a,s1,s2,e1,e2);
+    }
+};
