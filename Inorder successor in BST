@@ -1,0 +1,24 @@
+class Solution{
+  public:
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    void solve(Node* root,vector<Node*>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        solve(root->left,a);
+        a.push_back(root);  
+        solve(root->right,a);
+    }
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        vector<Node*>a;
+        solve(root,a);
+        for(int i=0;i<a.size()-1;i++){
+            if(a[i]==x){
+                return a[i+1];
+            }
+        }
+        return NULL;
+    }
+};
