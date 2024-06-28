@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void solve(ListNode* head,vector<int>& ans)
+    {
+        ListNode* temp=head;
+        while(temp!=NULL){
+            ans.push_back(temp->val);
+            temp=temp->next;
+        }
+    }
+    TreeNode* solve1(vector<int>& ans,int i,int n)
+    {
+        if(i>n){
+            return NULL;
+        }
+        int mid=i+(n-i)/2;
+        TreeNode* temp=new TreeNode(ans[mid]);
+        temp->left=solve1(ans,i,mid-1);
+        temp->right=solve1(ans,mid+1,n);
+        return temp;
+    }
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head==NULL){
+            return NULL;
+        }
+        vector<int>ans;
+        solve(head,ans);
+        return solve1(ans,0,ans.size()-1);
+    }
+};
