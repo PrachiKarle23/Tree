@@ -1,0 +1,21 @@
+class Solution {
+public:
+    TreeNode* solve(vector<int>& nums,int i,int n){
+        if(i>n){
+            return NULL;
+        }
+        int mid=i+(n-i)/2;
+        TreeNode* result=new TreeNode(nums[mid]);
+        result->left=solve(nums,i,mid-1);
+        result->right=solve(nums,mid+1,n);
+
+        return result;
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int n=nums.size();
+        if(n==0){
+            return NULL;
+        }
+        return solve(nums,0,n-1);
+    }
+};
