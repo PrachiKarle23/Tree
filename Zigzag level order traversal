@@ -1,3 +1,56 @@
+//GFG
+class Solution{
+    public:
+    //Function to store the zig zag order traversal of tree in a list.
+    void solve1(vector<int>a,vector<int>& ans){
+        for(int i=0;i<a.size();i++){
+            ans.push_back(a[i]);
+        }
+    }
+    void solve(Node* root,vector<int>a,vector<int> &ans,int level){
+         queue<Node*>q;
+         q.push(root);
+         q.push(NULL);
+         while(!q.empty()){
+             Node* temp=q.front();
+             q.pop();
+             if(temp==NULL){
+                 if(a.size()!=0){
+                     if(level==0 || level%2==0)
+                     {
+                        solve1(a,ans); 
+                     }
+                     else{
+                        reverse(a.begin(),a.end());
+                        solve1(a,ans);
+                     }
+                     q.push(NULL);
+                     a.clear();
+                     level++;
+                 }
+             }
+             else{
+                 a.push_back(temp->data);
+                 if(temp->left){
+                     q.push(temp->left);
+                 }
+                 if(temp->right){
+                     q.push(temp->right);
+                 }
+             }
+         }
+    }
+    vector <int> zigZagTraversal(Node* root)
+    {
+        int level=0;
+        vector<int>a;
+        vector<int>ans;
+        solve(root,a,ans,0);
+        return ans;
+    }
+};
+
+//Leetcode
 class Solution {
 public:
     void solve(TreeNode* root,vector<vector<int>>&ans,vector<int>a,int d)
