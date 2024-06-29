@@ -1,0 +1,45 @@
+class Solution
+{
+public:
+    void solve(Node* root,vector<int>a,vector<vector<int>>& ans){
+        if(root->left==NULL && root->right==NULL){
+            a.push_back(root->data);
+            ans.push_back(a);
+            return;
+        }
+        a.push_back(root->data);
+        if(root->left){
+            solve(root->left,a,ans);
+        }
+        if(root->right){
+            solve(root->right,a,ans);
+        }
+    }
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+        vector<int>a;
+        vector<vector<int>>ans;
+        solve(root,a,ans);
+        int maxi=0,mini=0;
+        int n=ans.size();
+        for(int i=0;i<n;i++){
+            if(ans[i].size()>mini){
+                mini=ans[i].size();
+            }
+        }
+        for(int i=0;i<n;i++){
+            int sum=0;
+            if(ans[i].size()==mini){
+             for(int j=0;j<ans[i].size();j++)
+             {
+                sum+=ans[i][j];
+             }
+             if(sum>maxi){
+                maxi=sum;
+             }  
+            }
+
+        }
+        return maxi;
+    }
+};
