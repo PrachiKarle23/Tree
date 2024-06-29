@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void solve(TreeNode* root,int val,int depth,int level)
+    {
+         if(root==NULL){
+            return;
+         }
+         if(level+1==depth){
+            TreeNode* left=root->left;
+            TreeNode* right=root->right;
+            root->left=new TreeNode(val);
+            root->right=new TreeNode(val);
+            root->left->left=left;
+            root->right->right=right;
+         }
+         solve(root->left,val,depth,level+1);
+         solve(root->right,val,depth,level+1);
+    }
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if(root==NULL && depth==1){
+            root=new TreeNode(val);
+            return root;
+        }
+        if(depth==1){
+           TreeNode* temp=root;
+           root=new TreeNode(val);
+           root->left=temp;
+           return root;
+        }
+        solve(root,val,depth,1);
+        return root;
+    }
+};
