@@ -1,0 +1,31 @@
+class Solution
+{
+public:
+    void solve(Node* root,vector<int>& a1){
+        if(root==NULL){
+            return;
+        }
+        a1.push_back(root->data);
+        solve(root->left,a1);
+        solve(root->right,a1);
+    }
+    int countPairs(Node* root1, Node* root2, int x)
+    {
+        int cnt=0;
+        vector<int>a1;
+        vector<int>a2;
+        solve(root1,a1);
+        solve(root2,a2);
+        
+        for(int i=0;i<a1.size();i++){
+            int sum=0;
+            for(int j=0;j<a2.size();j++){
+                sum=a1[i]+a2[j];
+                if(sum==x){
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+};
