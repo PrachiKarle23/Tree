@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    
+    void inorder(Node* root,vector<int>& a){
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root->data);
+        inorder(root->right,a);
+    }
+    int KthSmallestElement(Node *root, int K) {
+       vector<int>a;
+       inorder(root,a);
+    //   kth largest
+       return a[a.size()-K];
+    //   kth smallest
+       if(K>a.size()){
+           return -1;
+       }
+       return a[K-1];
+    }
+};
