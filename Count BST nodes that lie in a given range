@@ -1,0 +1,24 @@
+class Solution{
+public:
+    void inorder(Node* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root->data);
+        inorder(root->right,a);
+    }
+    int getCount(Node *root, int l, int h)
+    {
+      int cnt=0;
+      vector<int>a;
+      inorder(root,a);
+      for(int i=0;i<a.size();i++){
+          if(a[i]>=l && a[i]<=h){
+              cnt++;
+          }
+      }
+      return cnt;
+    }
+};
