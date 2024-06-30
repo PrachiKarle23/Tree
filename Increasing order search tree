@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void inorder(TreeNode* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root->val);
+        inorder(root->right,a);
+    }
+    TreeNode* solve(vector<int>& a,int s,int e)
+    {
+        if(s>e){
+            return NULL;
+        }
+        TreeNode* root=new TreeNode(a[s]);
+        root->left=NULL;
+        root->right=solve(a,s+1,e);
+        return root;
+    }
+    TreeNode* increasingBST(TreeNode* root) {
+        vector<int>a;
+        inorder(root,a);
+        TreeNode* ans=solve(a,0,a.size()-1);
+        return ans;
+    }
+};
