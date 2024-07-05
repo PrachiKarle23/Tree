@@ -32,3 +32,24 @@ vector<int> leftView(Node *root)
    solve(root,a,ans);
    return ans;
 }
+
+
+//Approach 2
+void solve(Node* root,vector<int>& ans){
+    if(root==NULL){
+        return;
+    }
+    ans.push_back(root->data);
+    if(root->left){
+        solve(root->left,ans);
+    }
+    else if(root->right){
+        solve(root->right,ans);
+    }
+}
+vector<int> leftView(Node *root)
+{
+   vector<int>ans;
+   solve(root,ans);
+   return ans;
+}
