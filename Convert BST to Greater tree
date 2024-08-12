@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void inorder(TreeNode* root,vector<int>& a)
+    {
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root->val);
+        inorder(root->right,a);
+    }
+    int sum(vector<int>& a,int val)
+    {
+        int s=0;
+        for(int i=val;i<a.size();i++){
+            s+=a[i];
+        }
+        return s;
+    }
+    TreeNode* solve(TreeNode* root,vector<int>& a,unordered_map<int,int>& mp)
+    {
+        if(root==NULL){
+            return root;
+        }
+        TreeNode* root1=new TreeNode(sum(a,mp[root->val]));
+        root1->left=solve(root->left,a,mp);
+        root1->right=solve(root->right,a,mp);
+        return root1;
+    }
+    TreeNode* convertBST(TreeNode* root) {
+        vector<int>a;
+        inorder(root,a);
+        unordered_map<int,int>mp;
+        for(int i=0;i<a.size();i++){
+              mp[a[i]]=i;
+        }
+        return solve(root,a,mp);
+    }
+};
