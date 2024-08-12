@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void solve(TreeNode* root,map<int,set<int>>& mp)
+    {
+        queue<pair<TreeNode*,int>>q;
+        q.push(make_pair(root,0));
+        while(!q.empty())
+        {
+            pair<TreeNode*,int>p=q.front();
+            q.pop();
+
+            TreeNode* temp=p.first;
+            int hd=p.second;
+            mp[hd].insert(temp->val);
+            if(temp->left){
+                q.push(make_pair(temp->left,hd-1));
+            }
+            if(temp->right){
+                q.push(make_pair(temp->right,hd+1));
+            }
+        }
+    }
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int,set<int>>mp;
+        solve(root,mp);
+        vector<vector<int>>ans;
+        for(auto i:mp){
+            vector<int>a;
+            for(auto j:i.second){
+                a.push_back(j);
+            }
+            ans.push_back(a);
+        }
+        return ans;
+    }
+};
