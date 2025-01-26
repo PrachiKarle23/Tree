@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void solve(TreeNode* root1,vector<int>& a1)
+    {
+        if(root1==NULL){
+            return;
+        }
+        if(root1->left==NULL && root1->right==NULL)
+        {
+            a1.push_back(root1->val);
+            return;
+        }
+        solve(root1->left,a1);
+        solve(root1->right,a1);
+    }
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<int> a1;
+        solve(root1, a1);
+        vector<int> a2;
+        solve(root2, a2);
+
+        if(a1.size()!=a2.size()){
+            return false;
+        }
+        for (int i = 0; i < a1.size(); i++) {
+           if(a1[i]!=a2[i]){
+            return false;
+           }
+        }
+        return true;
+    }
+};
