@@ -1,0 +1,23 @@
+class Solution {
+public:
+    TreeNode* merge(TreeNode* root1,TreeNode* root2)
+    {
+        if(root1==NULL){
+            return root2;
+        }
+        if(root2==NULL){
+            return root1;
+        }
+        if(root1==NULL && root2==NULL)
+        {
+            return NULL;
+        }
+        TreeNode* ans=new TreeNode(root1->val+root2->val);
+        ans->left=merge(root1->left,root2->left);
+        ans->right=merge(root1->right,root2->right);
+        return ans;
+    }
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        return merge(root1,root2);
+    }
+};
